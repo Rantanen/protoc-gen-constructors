@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package jubjubnest.test;
+option java_package = "net.jubjubnest";
+option java_outer_classname = "Protos";
+
+// Object ID consisting of type ID and internal or external item ID.
+message ObjectId
+{
+    int32 type_id = 1;
+    ObjectItemId item_id = 2;
+}
+
+// Item ID referencing an internal or external object.
+//
+// The object may also have both identities.
+message ObjectItemId
+{
+    int32 internal_id = 1;
+    string external_id = 2;
+}

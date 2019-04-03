@@ -7,6 +7,7 @@ pub mod spec;
 pub mod error;
 pub mod utils;
 pub mod context;
+pub mod documentation;
 
 pub mod prelude {
 
@@ -89,9 +90,13 @@ pub fn process<F>(f: F)
             .expect( "Bad request" );
 
     // Parse the constructors.
-    let spec = std::fs::read_to_string( "ctors.txt" ).expect( "Could not read" );
-    let file = spec::file( &spec ).expect( "Ok" );
-    let files = vec![ file ];
+    let spec_files = request.get_parameter()
+        .split(",")
+        .map( |file| std::fs::read_to_string(file).expect( "Could not read" ) )
+        .collect::<Vec<_>>();
+    let files = spec_files.iter()
+        .map(|f| spec::file(f).expect("Cold not parse"))
+        .collect::<Vec<_>>();
 
     let context = context::PluginContext {
         request: &request,

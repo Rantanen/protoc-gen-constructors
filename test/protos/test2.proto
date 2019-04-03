@@ -1,0 +1,9 @@
+
+syntax = "proto3";
+
+package net.test;
+
+message Struct {
+    int32 a = 1;
+    int32 b = 2;
+}
