@@ -1,0 +1,16 @@
+[package]
+name = "protoc-gen-constructors"
+version = "0.1.0"
+authors = ["Mikko Rantanen <jubjub@jubjubnest.net>"]
+edition = "2018"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+protobuf = "2"
+Inflector = "0.11"
+
+[build-dependencies]
+protobuf-codegen-pure = "2.3"
+peg = "0.5"

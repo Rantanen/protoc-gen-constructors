@@ -1,0 +1,5 @@
+/target
+**/*.rs.bk
+
+src/protos/plugin.rs
+src/protos/descriptor.rs
