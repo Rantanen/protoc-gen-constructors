@@ -26,8 +26,8 @@ fn run(
         // We'll need to require the original protobuf generated file so we can augment the types
         // there.
         //
-        // The file we are generating is placed in the same folder so we'll just need the file
-        // name here, not the full path.
+        // The file we are generating is placed in the same folder so we'll just need the file name
+        // here, not the full path.
         let stem = std::path::Path::new( file_context.descriptor.get_name() )
             .file_stem()
             .and_then( |stem| stem.to_str() )
@@ -55,6 +55,7 @@ fn run(
     Ok( response )
 }
 
+/// Writes the constructor implementation.
 fn write_ctor(
     out : &mut IndentingWriter,
     type_context : &TypeContext,
@@ -90,6 +91,7 @@ fn write_ctor(
     out.indent();
 
     writeln!( out, "var _self = new __.{}();", class_name )?;
+
     for initializer in &ctor.initializers {
         writeln!( out, "_self.set{}({});",
             to_pascal_case( initializer.field ),

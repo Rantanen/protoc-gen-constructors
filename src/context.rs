@@ -182,7 +182,7 @@ impl<'a> PluginContext<'a>
         None
     }
 
-    /// Findsa file descriptor given a name.
+    /// Finds a file descriptor given a name.
     fn get_file_descriptor(
         &'a self,
         file_name : &str
