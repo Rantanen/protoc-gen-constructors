@@ -57,7 +57,7 @@ fn get_builder_ctor(
 
     write_javadoc( &mut out, ctor )?;
 
-    let ctor_name = to_pascal_case( ctor.name );
+    let ctor_name = to_camel_case( ctor.name );
     let param_list = utils::join( &ctor.params, ", ", |p| format!( "{} {}",
                    get_type( &p.param_type ),
                    to_camel_case( &p.name ) ) );
@@ -66,7 +66,7 @@ fn get_builder_ctor(
     writeln!( out, "Builder _builder = new Builder();" )?;
 
     for initializer in &ctor.initializers {
-        writeln!( out, "_self.set{}({});",
+        writeln!( out, "_builder.set{}({});",
             to_pascal_case( initializer.field ),
             get_value( type_context, &initializer.value ),
         )?;
@@ -91,7 +91,7 @@ fn get_class_ctor(
     write_javadoc( &mut out, ctor )?;
 
     let class_name = to_pascal_case( type_context.get_name() );
-    let ctor_name = to_pascal_case( ctor.name );
+    let ctor_name = to_camel_case( ctor.name );
     let param_list = utils::join( &ctor.params, ", ", |p| format!( "{} {}",
                    get_type( &p.param_type ),
                    to_camel_case( &p.name ) ) );
@@ -157,13 +157,13 @@ fn get_value( context : &TypeContext, expr : &spec::Expr ) -> String
         spec::Expr::Bool( b ) => format!( "{:?}", b ),
         spec::Expr::Integer( i ) => format!( "{}", i ),
         spec::Expr::Float( f ) => format!( "{}", f ),
-        spec::Expr::Ref( r ) => r.to_string(),
+        spec::Expr::Ref( r ) => to_camel_case( r ),
         spec::Expr::Enum( e ) => format!( "{}.{}", e.enum_name, e.value_name ),
         spec::Expr::Call( c ) => {
 
             let func = match c.type_name {
-                Some( t ) => format!( "{}.{}", t, c.func_name ),
-                None => c.func_name.to_string(),
+                Some( t ) => format!( "{}.{}", t, to_camel_case(c.func_name) ),
+                None => to_camel_case(c.func_name)
             };
 
             let params = c.args
