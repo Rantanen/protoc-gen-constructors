@@ -4,7 +4,7 @@ use crate::prelude::*;
 use inflector::cases::camelcase::to_camel_case;
 
 pub fn write_javadoc(
-    out : &mut IndentingWriter,
+    out : &mut Write,
     ctor : &spec::Constructor
 ) -> Result<(), GeneratorError>
 {
