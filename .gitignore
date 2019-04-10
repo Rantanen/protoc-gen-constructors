@@ -3,3 +3,5 @@
 
 src/protos/plugin.rs
 src/protos/descriptor.rs
+
+src/bin/protoc-gen-csharp_constructors.rs
